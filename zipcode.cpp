@@ -27,12 +27,18 @@
     std::getline(ss, temp, '	');
     settype(temp);
 
+    //gets rid of decomissioned cause none of them had been decomissioned
+    std::getline(ss, temp, '	');
+
     std::getline(ss, temp, '	');
     setmaincity(temp);
 
     std::getline(ss, temp, '	');
     setsecondcity(temp);
 
+    //gets rid of unacceptable city
+    std::getline(ss, temp, '	');
+i
     std::getline(ss, temp, '	');
     setstate(temp);
 
@@ -45,6 +51,10 @@
     std::getline(ss, temp, '	');
     setareacode(temp);
 
+    //this gets rid of country and world region
+    std::getline(ss, temp, '	');
+    std::getline(ss, temp, '	');
+
     std::getline(ss, temp, '	');
     setlatitude(temp);
 
@@ -56,26 +66,92 @@
  
   }
   
-  std::string zipcode::getzip();
-  std::string zipcode::gettype();
-  std::string zipcode::getmaincity();
-  std::string zipcode::getsecondcity();
-  std::string zipcode::getstate();
-  std::string zipcode::getcouty();
-  std::string zipcode::gettimezone();
-  std::string zipcode::getareacode();
-  int zipcode::getlatitude();
-  int zipcode::getlongitude();
-  int zipcode::getpopulation();
-  void zipcode::setzip(std::string);
-  void zipcode::settype(std::string);
-  void zipcode::setmaincity(std::string);
-  void zipcode::setsecondcity(std::string);
-  void zipcode::setstate(std::string);
-  void zipcode::setcounty(std::string);
-  void zipcode::settimezone(std::string);
-  void zipcode::setareacode(std::string);
-  void zipcode::setlatitude(std::string);
-  void zipcode::setlongitude(std::string);
-  void zipcode::setpopulation(std::string);
+  std::string zipcode::getzip(){
+  return *zip;
+  }
+
+  std::string zipcode::gettype(){
+  return *type;
+  }
+
+  std::string zipcode::getmaincity(){
+  return *maincity;
+  }
+
+  std::string zipcode::getsecondcity(){
+  return *secondcity;
+  }
+
+  std::string zipcode::getstate(){
+  return *state;
+  }
+
+  std::string zipcode::getcouty(){
+  return *county;
+  }
+
+  std::string zipcode::gettimezone(){
+  return *timezone;
+  }
+
+  std::string zipcode::getareacode(){
+  return *areacode;
+  }
+
+  int zipcode::getlatitude(){
+  return *latitiude;
+  }
+
+  int zipcode::getlongitude(){
+  return *longitude;
+  }
+
+  int zipcode::getpopulation(){
+  return *population;
+  }
+
+  void zipcode::setzip(std::string s){
+  *zip = s;
+  }
+
+  void zipcode::settype(std::string s){
+  *type = s;
+  }
+
+  void zipcode::setmaincity(std::string s){
+  *maincity = s;
+  }
+
+  void zipcode::setsecondcity(std::string s){
+  *secondcity = s;
+  }
+
+  void zipcode::setstate(std::string s){
+  *state = s;
+  }
+
+  void zipcode::setcounty(std::string s){
+  *county = s;
+  }
+
+  void zipcode::settimezone(std::string s){
+  *timezone = s;
+  }
+
+  void zipcode::setareacode(std::string s){
+  *areacode = s;
+  }
+
+  void zipcode::setlatitude(std::string s){
+  *latitude = atoi(s.c_str());
+  }
+
+  void zipcode::setlongitude(std::string s){
+  *longitude = atoi(s.c_str());
+  }
+
+  void zipcode::setpopulation(std::string s){
+  *population = atoi(s.c_str());
+  }
+
 
