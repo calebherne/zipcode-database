@@ -5,7 +5,7 @@
 class zipcode{
 
   protected:
-    int* zip;
+    std::string* zip;
     std::string* type;
     //no reason to have a decommisioned cat b/c none 
     //have been decommisioned
@@ -25,8 +25,7 @@ class zipcode{
 
     zipcode();
     zipcode(std::string);
-    ~zipcode();
-    int getzip();
+    std::string getzip();
     std::string gettype();
     std::string getmaincity();
     std::string getsecondcity();
@@ -37,7 +36,7 @@ class zipcode{
     int getlatitude();
     int getlongitude();
     int getpopulation();
-    void setzip(int);
+    void setzip(std::string);
     void settype(std::string);
     void setmaincity(std::string);
     void setsecondcity(std::string);
@@ -45,9 +44,9 @@ class zipcode{
     void setcounty(std::string);
     void settimezone(std::string);
     void setareacode(std::string);
-    void setlatitude(int);
-    void setlongitude(int);
-    void setpopulation(int);
+    void setlatitude(std::string);
+    void setlongitude(std::string);
+    void setpopulation(std::string);
 
 };
 
