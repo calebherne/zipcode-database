@@ -94,7 +94,7 @@
   return *state;
   }
 
-  std::string zipcode::getcouty(){
+  std::string zipcode::getcounty(){
   return *county;
   }
 
@@ -151,11 +151,11 @@
   }
 
   void zipcode::setlatitude(std::string s){
-  *latitude = atoi(s.c_str());
+  *latitude = atof(s.c_str());
   }
 
   void zipcode::setlongitude(std::string s){
-  *longitude = atoi(s.c_str());
+  *longitude = atof(s.c_str());
   }
 
   void zipcode::setpopulation(std::string s){

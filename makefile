@@ -1,8 +1,10 @@
-LFLAGS = g++ -g -Wall
+LFLAGS = g++ -g -Wall 
 CFLAGS = g++ -c -g -Wall
-final: zipcode.o main.o
+final: zipcode.o main.o database.o
 	$(LFLAGS) *.o -o final
-testobj.o: zipcode.h zipcode.cpp
+database.o: database.h database.cpp zipcode.h
+	$(CFLAGS) database.cpp
+zipcode.o: zipcode.h zipcode.cpp
 	$(CFLAGS) zipcode.cpp
 main.o: main.cpp
 	$(CFLAGS) main.cpp

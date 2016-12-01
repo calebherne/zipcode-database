@@ -30,7 +30,7 @@ class zipcode{
     std::string getmaincity();
     std::string getsecondcity();
     std::string getstate();
-    std::string getcouty();
+    std::string getcounty();
     std::string gettimezone();
     std::string getareacode();
     int getlatitude();
