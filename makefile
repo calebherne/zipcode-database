@@ -10,5 +10,6 @@ make run:
 	./final
 make clean:
 	rm *.o
+	rm final
 make debug:
 	gdb final	 

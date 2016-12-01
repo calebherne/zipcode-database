@@ -1,5 +1,8 @@
 #include <iostream>
 #include <sstream>
+#include <string>
+#include <fstream>
+#include <cstdlib>
 #include "zipcode.h"
 
 
@@ -17,12 +20,16 @@
     *population = 0;
   }
   zipcode::zipcode(std::string s){
+    
+    
     std::stringstream ss;
-    ss<<s;
-    std::string temp;
+    std::string temp;  
+    ss<<s; 
+    
 
     std::getline(ss, temp, '	');
     setzip(temp);
+    
 
     std::getline(ss, temp, '	');
     settype(temp);
@@ -36,9 +43,10 @@
     std::getline(ss, temp, '	');
     setsecondcity(temp);
 
-    //gets rid of unacceptable city
+    //gets rid of unacceptable 
     std::getline(ss, temp, '	');
-i
+       
+
     std::getline(ss, temp, '	');
     setstate(temp);
 
@@ -61,7 +69,7 @@ i
     std::getline(ss, temp, '	');
     setlongitude(temp);
 
-    std::getline(ss, temp, '	');
+    std::getline(ss, temp);
     setpopulation(temp);
  
   }
@@ -99,7 +107,7 @@ i
   }
 
   int zipcode::getlatitude(){
-  return *latitiude;
+  return *latitude;
   }
 
   int zipcode::getlongitude(){
@@ -153,5 +161,5 @@ i
   void zipcode::setpopulation(std::string s){
   *population = atoi(s.c_str());
   }
-
+  
 

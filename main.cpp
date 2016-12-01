@@ -1,14 +1,35 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 #include <vector>
 #include <algorithm>
-#include "testobj.h"
+#include "zipcode.h"
 
-int menu();
-bool bynum();
-bool byletter();
+
+
+
 
 int main() {
-  int answer;
+  
+  std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\t";
+  std::vector <zipcode> zipvect (1, zipcode(s));	
+
+
+  /*
+  //THIS PROVES YOU CAN TAB DELIMINATE
+  std::string temp;
+  std::stringstream ss;
+  std::string s ="word	woord	wooord";
+  ss<<s<<' ';
+  for(int i =0; i<3; i++){
+    std::getline(ss, temp, '	');
+    std::cout<<temp<<"\n";
+  }
+  */
+
+
+
+/*int answer;
   
   std::vector<int> first;
   std::vector<int> second (3,100);
@@ -61,6 +82,7 @@ bool byletter(testobj elem1, testobj elem2){
 }
 
 bool bynum(testobj elem1, testobj elem2){
-  return elem1 > elem2;
+  return elem1 > elem2;*/
+  return 0;
 }
 

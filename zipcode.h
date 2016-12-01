@@ -17,7 +17,7 @@ class zipcode{
     std::string* timezone;
     std::string* areacode;
     //didnt use country or world region b/c they are all America
-    int* latitiude;
+    int* latitude;
     int* longitude;
     int* population;
 
