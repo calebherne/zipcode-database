@@ -1,7 +1,7 @@
 
 #ifndef ZIPCODE_H_EXISTS
 #define ZIPCODE_H_EXISTS
-
+#include <string>
 class zipcode{
 
   protected:
@@ -25,6 +25,7 @@ class zipcode{
 
     zipcode();
     zipcode(std::string);
+    ~zipcode();
     std::string getzip();
     std::string gettype();
     std::string getmaincity();

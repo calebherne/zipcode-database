@@ -4,13 +4,18 @@
 #include <vector>
 #include <algorithm>
 #include "zipcode.h"
+#include "database.h"
 
 
 
 
 
 int main() {
-  
+ 
+ database dab = database();
+ dab.finddistance("1","2");
+ 
+ 
  // std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\t";
  // std::vector <zipcode> zipvect (1, zipcode(s));	
 

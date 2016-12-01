@@ -6,7 +6,18 @@
 #include "zipcode.h"
 
 
-  zipcode::zipcode::zipcode(){
+  zipcode::zipcode(){
+    zip = new std::string();
+    type = new std::string();
+    maincity = new std::string();
+    secondcity = new std::string();
+    state = new std::string();
+    county = new std::string();
+    timezone = new std::string();
+    areacode = new std::string();
+    latitude = new int;
+    longitude = new int;
+    population = new int;
     *zip = "n/a";
     *type = "n/a";
     *maincity = "n/a";
@@ -73,7 +84,20 @@
     setpopulation(temp);
  
   }
-  
+  zipcode::~zipcode(){
+  delete zip;
+  delete type;
+  delete maincity;
+  delete secondcity;
+  delete state;
+  delete county;
+  delete timezone;
+  delete areacode;
+  delete latitude;
+  delete longitude;
+  delete population;
+  }  
+
   std::string zipcode::getzip(){
   return *zip;
   }

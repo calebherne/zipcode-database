@@ -6,7 +6,16 @@
 #include "database.h" 
 
   database::database(){
-    
+  zipcode a = zipcode();
+  zipcode b = zipcode();
+  a.setlatitude("73");
+  a.setlongitude("43");
+  b.setlatitude("73");
+  b.setlongitude("43");
+  a.setzip("1");
+  b.setzip("2");
+  zipvect.push_back(a);
+  zipvect.push_back(b); 
   }
   void database::partialdisplay(zipcode z){
    
