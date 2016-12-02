@@ -172,11 +172,64 @@
    std::cout<<"The distance in miles is "<<distance*.621371<<".\n";  
   }
 
-  
+void swap(int a, int b){
+  zipcode* temp = new zipcode();
+  *temp = zipvect[a];
+  zipvect[a] = zipvect[b];
+  zipvect[b] = *temp;
+  delete temp; 
+}
 
+void quicksort(int a, int lo, int hi){
+  if(lo < hi){
+    int p = partition(a,hi,lo);
+    if(p == -1){
+      return;
+      }
+    quicksort( a, lo, p);
+    quicksort( a, p+1, hi);
+  }
+}
 
-
-      
+int partition(int a,int lo, int hi){
+  std::string pivot;
+  int i = lo;
+  int j = hi;
+  bool keepgoing = true;
+  if(a== 1){
+  pivot = zipvect[lo].getzip();
+  }
+  else if(a == 2){
+  pivot = zipvect[lo].getmaincity();
+  }
+  else if(a == 3){
+  pivlot = zipvect[lo].getstate();
+  }
+  else{
+    std::cout<<"you did not choose sorting method, 1, 2, or 3.\n";
+    return (-1);
+  }
+  while(keepgoing){
+    if(a == 1){
+      while(zipvect[i].getzip()< pivot){i = i+1;}
+      while(zipvect[j].getzip()> pivot){j = j-1;}
+      if(i >= j){return j;}
+      swap(i,j);
+    }
+    if(a == 2){
+      while(zipvect[i].getmaincity()< pivot){i = i+1;}
+      while(zipvect[j].getmaincity()> pivot){j = j-1;}
+      if(i >= j){return j;}
+      swap(i,j);
+    }
+    if(a == 3){
+      while(zipvect[i].getstate()< pivot){i = i+1;}
+      while(zipvect[j].getstate()> pivot){j = j-1;}
+      if(i >= j){return j;}
+      swap(i,j);
+    }
+  }
+}    
 
 
 

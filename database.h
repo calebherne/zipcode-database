@@ -20,8 +20,10 @@ class database{
     void searchbystate(std::vector<zipcode>, std::string, int);
     void addzipcode();
     void finddistance(std::string, std::string);
-    //void sortbyzipcode();
-    //void sortbycity();
+    void swap(int, int);
+    void partition(int, int);
+    void quicksort(int,int, int);
+    //void sortbycity(int, int);
     //void sortbystate();
    
 };

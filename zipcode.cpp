@@ -31,10 +31,21 @@
     *population = 0;
   }
   zipcode::zipcode(std::string s){
-    
+        
+    zip = new std::string();
+    type = new std::string();
+    maincity = new std::string();
+    secondcity = new std::string();
+    state = new std::string();
+    county = new std::string();
+    timezone = new std::string();
+    areacode = new std::string();
+    latitude = new int;
+    longitude = new int;
+    population = new int;
     
     std::stringstream ss;
-    std::string temp;  
+    std::string temp = " ";  
     ss<<s; 
     
 
