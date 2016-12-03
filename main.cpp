@@ -12,16 +12,18 @@
 
 int main() {
  
- //database dab = database();
- //dab.finddistance("1","2");
- 
+  database* dab = new database();
+  dab->addzipcode();
+  dab->addzipcode();
+  dab->finddistance("1","2");
+  delete dab;
    
-  std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
-  zipcode* z = new zipcode(s);
-  std::vector <zipcode> vect;
-  vect.push_back(*z);
-  std::cout<<"got this far";	
-  delete z;
+  /*std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
+  zipcode z(s); 
+  std::vector<zipcode> *vect = new std::vector<zipcode>;
+  vect->push_back(z);
+  std::cout<<vect->at(0).getstate()<<"\n";	
+  delete vect;*/
 
   /*
   //THIS PROVES YOU CAN TAB DELIMINATE
@@ -91,6 +93,9 @@ bool byletter(testobj elem1, testobj elem2){
 
 bool bynum(testobj elem1, testobj elem2){
   return elem1 > elem2;*/
+  std::string x = "we made it this far";
+  std::cout<< x << std::endl;
+  std::cin>>x;
   return 0;
 }
 

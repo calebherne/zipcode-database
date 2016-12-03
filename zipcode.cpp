@@ -7,6 +7,7 @@
 
 
   zipcode::zipcode(){
+    std::cout<<"here"; 
     zip = new std::string();
     type = new std::string();
     maincity = new std::string();
@@ -15,8 +16,8 @@
     county = new std::string();
     timezone = new std::string();
     areacode = new std::string();
-    latitude = new int;
-    longitude = new int;
+    latitude = new float;
+    longitude = new float;
     population = new int;
     *zip = "n/a";
     *type = "n/a";
@@ -32,6 +33,7 @@
   }
   zipcode::zipcode(std::string s){
         
+    
     zip = new std::string();
     type = new std::string();
     maincity = new std::string();
@@ -40,12 +42,12 @@
     county = new std::string();
     timezone = new std::string();
     areacode = new std::string();
-    latitude = new int;
-    longitude = new int;
+    latitude = new float;
+    longitude = new float;
     population = new int;
     
     std::stringstream ss;
-    std::string temp = " ";  
+    std::string temp;  
     ss<<s; 
     
 
@@ -93,9 +95,12 @@
 
     std::getline(ss, temp);
     setpopulation(temp);
- 
+
+   
   }
   zipcode::~zipcode(){
+  
+  
   delete zip;
   delete type;
   delete maincity;
@@ -141,11 +146,11 @@
   return *areacode;
   }
 
-  int zipcode::getlatitude(){
+  float zipcode::getlatitude(){
   return *latitude;
   }
 
-  int zipcode::getlongitude(){
+  float zipcode::getlongitude(){
   return *longitude;
   }
 

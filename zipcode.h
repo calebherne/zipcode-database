@@ -1,10 +1,10 @@
 
 #ifndef ZIPCODE_H_EXISTS
 #define ZIPCODE_H_EXISTS
-#include <string>
+
 class zipcode{
 
-  protected:
+  private:
     std::string* zip;
     std::string* type;
     //no reason to have a decommisioned cat b/c none 
@@ -17,8 +17,8 @@ class zipcode{
     std::string* timezone;
     std::string* areacode;
     //didnt use country or world region b/c they are all America
-    int* latitude;
-    int* longitude;
+    float* latitude;
+    float* longitude;
     int* population;
 
   public:
@@ -34,8 +34,8 @@ class zipcode{
     std::string getcounty();
     std::string gettimezone();
     std::string getareacode();
-    int getlatitude();
-    int getlongitude();
+    float getlatitude();
+    float getlongitude();
     int getpopulation();
     void setzip(std::string);
     void settype(std::string);
