@@ -5,7 +5,7 @@
 
 class menu{
 
-  privat:
+  private:
     database *dab;
   public:
     menu();

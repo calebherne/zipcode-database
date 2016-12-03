@@ -4,10 +4,11 @@
 #include <fstream>
 #include <sstream>
 #include "database.h"
+#include "menu.h"
 
 menu::menu(){
   database* dab = new database();
-  dab->input(); //wont work until I fix input
+  //dab->input(); //wont work until I fix input
 }
 
 menu::~menu(){
@@ -36,7 +37,7 @@ void menu::mainmenu(){
     else if(choice == "4"){dab->addzipcode();}
     else if(choice == "5"){displaymenu();}
     else if(choice == "6"){keepgoing = false;}
-    else{std::cout<<"Your entry could not be unterstood, please enter an integer between 1 and 6\n";i}
+    else{std::cout<<"Your entry could not be unterstood, please enter an integer between 1 and 6\n";}
   }
 }
 
@@ -57,16 +58,16 @@ void menu::displaymenu(){
     std::cout<<"Display Options\n\n";
     std::cout<<"(1) Display all data for one element\n";
     std::cout<<"(2) Display basic data for many\n";
-    std::cin<<choice;
+    std::cin>>choice;
     if(choice == "1"){
       std::cout<<"Please enter the number of the zipcode you would like to see.\n";
       std::string number = " ";
       std::cin>>number;
       dab->fulldisplay(number); 
-      keepgoing == false;
+      keepgoing = false;
     }else if(choice == "2"){
       dab->partialdisplayzip();
-      keepgoing == false;
+      keepgoing = false;
       }
     else{std::cout<<"That is not a valid response\n";}
 

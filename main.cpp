@@ -5,18 +5,21 @@
 #include <algorithm>
 #include "zipcode.h"
 #include "database.h"
+#include "menu.h"
 
 
 
 
 
 int main() {
- 
+
+  menu *m= new menu(); 
   database* dab = new database();
   dab->addzipcode();
   dab->addzipcode();
   dab->finddistance("1","2");
   delete dab;
+  delete m;
    
   /*std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
   zipcode z(s); 
