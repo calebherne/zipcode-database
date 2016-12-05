@@ -2,13 +2,14 @@
 #ifndef ZIPCODE_H_EXISTS
 #define ZIPCODE_H_EXISTS
 
+//class header
 class zipcode{
 
+	//private member variables in the order they are in the txt document
   private:
     std::string* zip;
     std::string* type;
-    //no reason to have a decommisioned cat b/c none 
-    //have been decommisioned
+    //no reason to have a decommisioned cat b/c none have been decommisioned
     std::string* maincity; 
     std::string* secondcity;
     //dont know what unacceptable city means so I didnt include it
@@ -21,11 +22,17 @@ class zipcode{
     float* longitude;
     int* population;
 
+	//public functions
   public:
-
+//default constructor only for user added data
     zipcode();
-    zipcode(std::string);
-    ~zipcode();
+//copy constrctor
+    void setequal(const zipcode&);
+//overloaded construtor will be used more
+    void input(std::string);
+//destructor
+    //~zipcode();
+//other functions are all getters and setters
     std::string getzip();
     std::string gettype();
     std::string getmaincity();
@@ -49,6 +56,6 @@ class zipcode{
     void setlongitude(std::string);
     void setpopulation(std::string);
 
-};
+};//end zipcode header
 
 #endif

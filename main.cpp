@@ -4,29 +4,28 @@
 #include <vector>
 #include <algorithm>
 #include "zipcode.h"
-#include "database.h"
-#include "menu.h"
-
-
-
+//#include "database.h"
+//#include "menu.h"
 
 
 int main() {
+ 
+  //menu* men = new menu();
+  //men->mainmenu();
+  //delete men;
 
-  menu *m= new menu(); 
-  database* dab = new database();
-  dab->addzipcode();
-  dab->addzipcode();
-  dab->finddistance("1","2");
-  delete dab;
-  delete m;
+ //database dab = database();
+ //dab.finddistance("1","2");
+ 
    
-  /*std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
-  zipcode z(s); 
-  std::vector<zipcode> *vect = new std::vector<zipcode>;
-  vect->push_back(z);
-  std::cout<<vect->at(0).getstate()<<"\n";	
-  delete vect;*/
+  std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
+  //zipcode* z = new zipcode(s);
+  //std::vector <zipcode> vect;
+  zipcode z= zipcode();
+  z.input(s);
+  	
+  
+ 
 
   /*
   //THIS PROVES YOU CAN TAB DELIMINATE
@@ -96,9 +95,7 @@ bool byletter(testobj elem1, testobj elem2){
 
 bool bynum(testobj elem1, testobj elem2){
   return elem1 > elem2;*/
-  std::string x = "we made it this far";
-  std::cout<< x << std::endl;
-  std::cin>>x;
   return 0;
+
 }
 
