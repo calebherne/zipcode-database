@@ -4,25 +4,28 @@
 #include <vector>
 #include <algorithm>
 #include "zipcode.h"
-//#include "database.h"
-//#include "menu.h"
+#include "database.h"
+#include "menu.h"
 
 
 int main() {
  
-  //menu* men = new menu();
-  //men->mainmenu();
-  //delete men;
+  menu men = menu();
+  men.mainmenu();
+  
 
  //database dab = database();
  //dab.finddistance("1","2");
  
    
-  std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
-  //zipcode* z = new zipcode(s);
-  //std::vector <zipcode> vect;
+  /*std::string s ="46075	uniquie	no	westfield	carmel	no	IN	hamilton	EST	317	no	no	40.81	73.04	10\n";
+  std::vector <zipcode> vect;
   zipcode z= zipcode();
   z.input(s);
+  vect.push_back(z);
+  vect.push_back(z);
+  std::cout<<vect.at(0).getzip()<<vect.at(1).getmaincity();*/
+  
   	
   
  

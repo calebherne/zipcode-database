@@ -9,17 +9,17 @@ class database{
 
 	//protected variables
   private:
-    std::vector <zipcode>* zipvect;//holds all zipcode data
-    std::vector <zipcode>* other;//holds zipcode data to benefit search function
+    std::vector <zipcode> zipvect;//holds all zipcode data
+    std::vector <zipcode> other;//holds zipcode data to benefit search function
       
  //public functions
   public:
 	//constructor
-    database();
+    //database();
 	//destructor
-    ~database();
+    //~database();
 	//outputs the current state of zipvect
-	void output(std::string);
+    void output(std::string);
 	//takes input from an input file  
     void input();
 	//calls the correct search method
@@ -30,13 +30,13 @@ class database{
     void partialdisplayzip();
 	//display somefileds such as zipcode, city, sate, and county but not all fields
 	//it also displays 30 of them
-    void partialdisplay(std::vector <zipcode>);
+    void partialdisplay(std::vector <zipcode>&);
 	//display all fields of one zipcode
     void fulldisplay(std::string);
 	//next three functions search based on a single field
-    void searchbyzipcode(std::vector<zipcode>, std::string, int);
-    void searchbycity(std::vector<zipcode>, std::string, int);
-    void searchbystate(std::vector<zipcode>, std::string, int);
+    void searchbyzipcode(std::vector<zipcode>&, std::string, int);
+    void searchbycity(std::vector<zipcode>&, std::string, int);
+    void searchbystate(std::vector<zipcode>&, std::string, int);
 	//adds an instance of zipcode to the vector vipvect
     void addzipcode();
 	//finds the distance between two zipcodes

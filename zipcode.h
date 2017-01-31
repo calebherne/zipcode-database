@@ -7,27 +7,27 @@ class zipcode{
 
 	//private member variables in the order they are in the txt document
   private:
-    std::string* zip;
-    std::string* type;
+    std::string zip;
+    std::string type;
     //no reason to have a decommisioned cat b/c none have been decommisioned
-    std::string* maincity; 
-    std::string* secondcity;
+    std::string maincity; 
+    std::string secondcity;
     //dont know what unacceptable city means so I didnt include it
-    std::string* state;
-    std::string* county;
-    std::string* timezone;
-    std::string* areacode;
+    std::string state;
+    std::string county;
+    std::string timezone;
+    std::string areacode;
     //didnt use country or world region b/c they are all America
-    float* latitude;
-    float* longitude;
-    int* population;
+    float latitude;
+    float longitude;
+    int population;
 
 	//public functions
   public:
 //default constructor only for user added data
     zipcode();
 //copy constrctor
-    void setequal(const zipcode&);
+	void setequal(const zipcode&);
 //overloaded construtor will be used more
     void input(std::string);
 //destructor

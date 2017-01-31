@@ -9,7 +9,7 @@
 //default constuctor
   zipcode::zipcode(){
     //declares on the heap and gives default values
-  /*  zip = new std::string();
+    /*zip = new std::string();
     type = new std::string();
     maincity = new std::string();
     secondcity = new std::string();
@@ -20,34 +20,34 @@
     latitude = new float;
     longitude = new float;
     population = new int;*/
-    *zip = "n/a";
-    *type = "n/a";
-    *maincity = "n/a";
-    *secondcity = "n/a";
-    *state = "n/a";
-    *county = "n/a";
-    *timezone = "n/a";
-    *areacode = "n/a";
-    *latitude = 0;
-    *longitude = 0;
-    *population = 0;
+    zip = "n/a";
+    type = "n/a";
+    maincity = "n/a";
+    secondcity = "n/a";
+    state = "n/a";
+    county = "n/a";
+    timezone = "n/a";
+    areacode = "n/a";
+    latitude = 0;
+    longitude = 0;
+    population = 0;
   }
   //resembles a copy constructor but i am not declaring variables on the heap, this is just so i can set 
   //existing zipcode instances equal to eachother
   void zipcode::setequal(const zipcode &z)
   {
 	 
-	  *zip = *z.zip;
-	  *type = *z.type;
-	  *maincity = *z.maincity;
-	  *secondcity = *z.secondcity;
-	  *state = *z.state;
-	  *county = *z.county;
-	  *timezone = *z.timezone;
-	  *areacode = *z.areacode;
-	  *latitude = *z.latitude;
-	  *longitude = *z.longitude;
-	  *population = *z.population;
+	  zip = z.zip;
+	  type = z.type;
+	  maincity = z.maincity;
+	  secondcity = z.secondcity;
+	  state = z.state;
+	  county = z.county;
+	  timezone = z.timezone;
+	  areacode = z.areacode;
+	  latitude = z.latitude;
+	  longitude = z.longitude;
+	  population = z.population;
   }
   //overloaded constructor
   void zipcode::input(std::string s){
@@ -134,98 +134,98 @@
   delete latitude;
   delete longitude;
   delete population;
-  } */ 
+  }  */
 
   //get functions get private data
   std::string zipcode::getzip(){
-  return *zip;
+  return zip;
   }
 
   std::string zipcode::gettype(){
-  return *type;
+  return type;
   }
 
   std::string zipcode::getmaincity(){
-  return *maincity;
+  return maincity;
   }
 
   std::string zipcode::getsecondcity(){
-  return *secondcity;
+  return secondcity;
   }
 
   std::string zipcode::getstate(){
-  return *state;
+  return state;
   }
 
   std::string zipcode::getcounty(){
-  return *county;
+  return county;
   }
 
   std::string zipcode::gettimezone(){
-  return *timezone;
+  return timezone;
   }
 
   std::string zipcode::getareacode(){
-  return *areacode;
+  return areacode;
   }
 
   float zipcode::getlatitude(){
-  return *latitude;
+  return latitude;
   }
 
   float zipcode::getlongitude(){
-  return *longitude;
+  return longitude;
   }
 
   int zipcode::getpopulation(){
-  return *population;
+  return population;
   }
 
   //setter put entered data into private variables
   void zipcode::setzip(std::string s){
-  *zip = s;
+  zip = s;
   }
 
   void zipcode::settype(std::string s){
-  *type = s;
+  type = s;
   }
 
   void zipcode::setmaincity(std::string s){
-  *maincity = s;
+  maincity = s;
   }
 
   void zipcode::setsecondcity(std::string s){
-  *secondcity = s;
+  secondcity = s;
   }
 
   void zipcode::setstate(std::string s){
-  *state = s;
+  state = s;
   }
 
   void zipcode::setcounty(std::string s){
-  *county = s;
+  county = s;
   }
 
   void zipcode::settimezone(std::string s){
-  *timezone = s;
+  timezone = s;
   }
 
   void zipcode::setareacode(std::string s){
-  *areacode = s;
+  areacode = s;
   }
 
   //use atof and atoi to convert strings to ints to be stored
   //this allows a later function to use their float values to calculate distance
   void zipcode::setlatitude(std::string s){
-  *latitude = atof(s.c_str());
+  latitude = atof(s.c_str());
   }
 
   void zipcode::setlongitude(std::string s){
-  *longitude = atof(s.c_str());
+  longitude = atof(s.c_str());
   }
 
   void zipcode::setpopulation(std::string s){
-  *population = atoi(s.c_str());
+  population = atoi(s.c_str());
   }
   
 

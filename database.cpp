@@ -6,38 +6,27 @@
 #include "zipcode.h"
 #include "database.h" 
 
-//constructor
-  database::database(){
 
-  //instanciates objects on the heap
-  zipvect = new std::vector <zipcode>; //holds data from zipfile
-  other = new std::vector <zipcode>;  //orders data based on serach
-  }
-  
-  //this is a destructor but it also writes to the zipcode database, the final txt version of the vector
-  database::~database(){
-  	  	    
-  delete zipvect;
-  delete other;
-  }
+
 
   //parse the input file containing all zipcodes in the US
   void database::input() {
-	  //zipcode* zip = new zipcode();
+	  
+	  zipcode zip = zipcode();
 	  std::string temp;
 	  //opens file to read in input
 	  std::ifstream inputs;
 	  //loops until the entire text document has been read
-	  inputs.open("zip_code_database.txt");
+//	  inputs.open("zip_code_database.txt");
+          inputs.open("zip_code_database.txt");
 	  //firts gelitne gets rid of header
 	  std::getline(inputs, temp);
 	  while (std::getline(inputs, temp)) {
 		  //braks file into pieces that the zipcode constructor can use
-                  //*zip = zipcode(temp+"\n"); 		  
-		  //zipvect->push_back(*zip);
+		  zip.input(temp + "\n");
+		  zipvect.push_back(zip);
 	  }
-      inputs.close();
-      //delete zip;
+	  inputs.close();
   }
 
   //creates an output file of the current state of the database, a '.'has been added in place of 
@@ -49,15 +38,16 @@
 	  //it is saved as a text file
 	  std::string file = s + ".txt";
 	  std::ofstream output;
-	  output.open("customzipcode.txt");
+	  output.open(file.c_str());
 	  //periods are used where inconsequantial data is placed so that it will be parced correctly
-	  std::vector<zipcode>::iterator it = zipvect->begin();
+	  std::vector<zipcode>::iterator it = zipvect.begin();
 	  output << "zip	type	.	main_city	secondary_city	.	state	county	timezone	areacode	.	.	latitude	longitude	population\n";
-	  while (it != zipvect->end()) {
+	  while (it != zipvect.end()) {
 		  output<<it->getzip()<<"	"<<it->gettype()<<"	.	"<<it->getmaincity()<<"	";
 		  output<<it->getsecondcity()<<"	.	"<<it->getstate()<<"	"<<it-> getcounty();
 		  output<<"	"<<it->gettimezone()<<"	"<<it->getareacode()<<"	.	.	"<<it->getlatitude();
-		  output << "	" << it->getlongitude() << "	" << it->getpopulation() << "\n";
+		  output <<"	" << it->getlongitude() << "	" << it->getpopulation() << "\n";
+                  it++;
 	  }
 	  output.close();
   }
@@ -71,17 +61,28 @@
 	  //outputs menu for user
       std::cout<<"Search Methods\n\n";
       std::cout<<"(1) Search by Zipcode\n";
-      std::cout<<"(2) Searcht by City\n";
+      std::cout<<"(2) Search by City\n";
       std::cout<<"(3) Search by State\n";
       std::cout<<"(4) Back\n\n";
 	  //user enters choice and search
-      std::cin>>choice;
-      std::cout<<"Enter Search\n";
-      std::cin>>search;
+      //std::cin>>choice;
+      std::getline(std::cin, choice); 
+           
 	  //checks what was chosen and calls the corresponding function
-      if(choice == "1"){searchbyzipcode(*zipvect, search, 0);}
-      else if(choice == "2"){searchbycity(*zipvect, search, 0);}
-      else if(choice == "3"){searchbystate(*zipvect, search, 0);}
+      if(choice == "1"){
+        std::cout<<"Enter Search\n";
+        std::getline(std::cin, search);
+        searchbyzipcode(zipvect, search, 0);}
+      else if(choice == "2"){
+        std::cout<<"Enter Search\n";
+        std::cout<<"Remember to capitalize the first letter of the city.\n"; 
+        std::getline(std::cin, search);
+	searchbycity(zipvect, search, 0);}
+      else if(choice == "3"){
+        std::cout<<"Enter Search\n";
+        std::cout<<"Remember to capitalize the state search.\n"; 
+        std::getline(std::cin, search);
+	searchbystate(zipvect, search, 0);}
       else if(choice == "4"){keepgoing = false;}
       else{std::cout<<"Your answer could not be understood, please enter one of the integers above.\n";}
     }
@@ -95,20 +96,20 @@
     std::cout<<"(1) Sort by Zipcode\n";
     std::cout<<"(2) Sort by City\n";
     std::cout<<"(3) Sort by State\n";
-    std::cin>>choice;
+    std::getline(std::cin,choice);
 	//custom quicksort function has the capability to sort by each method built in
-    quicksort(choice, 0, zipvect->size());
+    quicksort(choice, 0, (int)(zipvect.size()-1));
   }
 
   //calls partial display on the zipvect
   //this is a function because it was the best way to have zipvect as an argument
   //while still allowing other vectors to be sorted
   void database::partialdisplayzip(){
-    partialdisplay(*zipvect);
+    partialdisplay(zipvect);
   }  
 
   //displays 4 zipcode fields and 30 zipcodes, most useful for searching
-  void database::partialdisplay(std::vector <zipcode> z) {
+  void database::partialdisplay(std::vector <zipcode>& z) {
 
 	  int i = 0;
 	  std::string response;
@@ -117,21 +118,26 @@
 	  std::vector<zipcode>::iterator it = z.begin();
 	  //keeps looping until 30 have been outputed
 	  while (keepgoing) {
+                  i = 0;
 		  std::cout << "Zipcode     City                 County               State         \n";
 		  while (it != z.end() && i < 30) {
 			  std::cout << it->getzip();
-			  std::cout << "      ";
+                          for(int j = it->getzip().length(); j<10; j++){
+			  	 std::cout<<" ";
+			  }
 			  std::cout << it->getmaincity();
 			  //these keep spacing consitent
 			  for (int j = it->getmaincity().length(); j < 20; j++) {
 				  std::cout << " ";
 			  }
 			  std::cout << it->getcounty();
-			  for (int j = it->getcounty().length(); j < 20; j++) {
+			  for (int j = it->getcounty().length(); j < 25; j++) {
 				  std::cout << " ";
 			  }
-			  std::cout << it->getstate();
-			  std::cout << "       \n\n";
+                          std::cout << it->getstate();
+			  std::cout << " \n";
+                          i++;
+                          it++;
 		  }
 		  response = " ";
 		  //if the vector ended the user will not be asked if they would like to see more
@@ -154,7 +160,7 @@
   int notfound=0;
   bool keepgoing = true;
   //sets iterator to the begining of zipvect
-  std::vector<zipcode>::iterator it = zipvect->begin();
+  std::vector<zipcode>::iterator it = zipvect.begin();
   while(keepgoing){
 	  //stops if the element is found or if the end of zipvect is rechec
 
@@ -162,7 +168,7 @@
     break;
     }
 
-    if(it == zipvect->end()){
+    if(it == zipvect.end()){
     notfound++;
     break;
     }
@@ -180,181 +186,269 @@
  }
   
   //searches for a specified and partially displays all potential results
-  void database::searchbyzipcode(std::vector<zipcode> works, std::string search, int letter){
+  void database::searchbyzipcode(std::vector<zipcode>& works, std::string search, int letter){
     
-    std::string temp;
-    std::vector<zipcode> yes, no;
-	std::vector<zipcode>::iterator it2;
+    std::string temp = " ";
+    std::vector<zipcode> yes;
+    std::vector<zipcode>::iterator it2;
     std::vector<zipcode>::iterator it = works.begin();
+  
 	//itterates through the whole vector that was passed
+    if(letter == search.size()){
+	it = works.end();
+    }
     while(it != works.end()){
       temp = it->getzip();
+         
 	  //chekcs if the search string and zipcode have the same character in the positions
 	  //specified by the letter int
-      if(temp [letter] == search [letter]){
-		  //if they are equal they are plut in a vector of other zipcodes that have similar char's
-        yes.push_back(*it);
+      if(temp.size() > letter){
+	  
+        if(temp[letter] == search[letter]){
+             
+	  	  //if they are equal they are plut in a vector of other zipcodes that have similar char's
+          yes.push_back(*it);
+        }
       }
-	 
+     it++; 
     }
-	//if any zipcodes share a letter in the specified location, than the function
-	//is called recursively to check the next letter
-    if(!yes.empty()){
+  	//if any zipcodes share a letter in the specified location, than the function
+    	//is called recursively to check the next letter
+    	
+    if(!yes.empty()&& letter != search.size()){
       letter++;
       searchbyzipcode(yes, search, letter);
+      letter--;
     }
 	//once the recursion is over all the zipcodes that were in the yes vector will be added to other
 	//vector in the order of most similar letters to least not including the same zipcode twice
+    
     it = yes.begin();
-	int x=0;
+    int x;
+     
     while(it != yes.end()){
-		it2 = other->begin();
-		while (it2 != other->end()) {
+		x=0;
+		it2 = other.begin();
+		while (it2 != other.end()) {
 			if (it->getzip() == it2->getzip()) { x++;}
+                       it2++;
 		}
 		if (x == 0) {
-			other->push_back(*it);
-			it++;
+                        other.push_back(*it);
 		}
+         it++;
     }
 	//calls partial display once since letter will only equal zero the first time
     if(letter == 0){
-      partialdisplay(*other);
+     
+      partialdisplay(other);
+      other.clear();
     }
 	//clears other vector so that it will be ready fo the next search
-	other->clear();
+	
   }    
       
-  //same as search by zipcode, just uses cities
-  void database::searchbycity(std::vector<zipcode> works, std::string search, int letter){
+  void database::searchbycity(std::vector<zipcode>& works, std::string search, int letter){
     
-    std::string temp;
-    std::vector<zipcode> yes, no;
+    std::string temp = " ";
+    std::vector<zipcode> yes;
+    std::vector<zipcode>::iterator it2;
     std::vector<zipcode>::iterator it = works.begin();
+  
+	//itterates through the whole vector that was passed
+    if(letter == search.size()){
+	it = works.end();
+    }
     while(it != works.end()){
       temp = it->getmaincity();
-      if(temp [letter] == search [letter]){
-        yes.push_back(*it);
+         
+	  //chekcs if the search string and zipcode have the same character in the positions
+	  //specified by the letter int
+      if(temp.size() > letter){
+	  
+        if(temp[letter] == search[letter]){
+             
+	  	  //if they are equal they are plut in a vector of other zipcodes that have similar char's
+          yes.push_back(*it);
+        }
       }
-      else{no.push_back(*it);}
+     it++; 
     }
-    if(!yes.empty()){
+  	//if any zipcodes share a letter in the specified location, than the function
+    	//is called recursively to check the next letter
+    	
+    if(!yes.empty()&& letter != search.size()){
       letter++;
       searchbycity(yes, search, letter);
+      letter--;
     }
-    it = yes.begin();
-    while(it != yes.end()){
-      other->push_back(*it);
-    }
-    if(letter == 0){
-      partialdisplay(*other);
-    }
-	other->clear();
-  }    
-  
-  //same as searchbyzipcode but uses states
-  void database::searchbystate(std::vector<zipcode> works, std::string search, int letter){
+	//once the recursion is over all the zipcodes that were in the yes vector will be added to other
+	//vector in the order of most similar letters to least not including the same zipcode twice
     
-    std::string temp;
-    std::vector<zipcode> yes, no;
+    it = yes.begin();
+    int x;
+     
+    while(it != yes.end()){
+		x=0;
+		it2 = other.begin();
+		while (it2 != other.end()) {
+			if (it->getzip() == it2->getzip()) { x++;}
+                       it2++;
+		}
+		if (x == 0) {
+                        other.push_back(*it);
+		}
+         it++;
+    }
+	//calls partial display once since letter will only equal zero the first time
+    if(letter == 0){
+     
+      partialdisplay(other);
+      other.clear();
+    }
+	//clears other vector so that it will be ready fo the next search
+	
+  }    
+  void database::searchbystate(std::vector<zipcode>& works, std::string search, int letter){
+    
+    std::string temp = " ";
+    std::vector<zipcode> yes;
+    std::vector<zipcode>::iterator it2;
     std::vector<zipcode>::iterator it = works.begin();
+  
+	//itterates through the whole vector that was passed
+    if(letter == search.size()){
+	it = works.end();
+    }
     while(it != works.end()){
       temp = it->getstate();
-      if(temp [letter] == search [letter]){
-        yes.push_back(*it);
+         
+	  //chekcs if the search string and zipcode have the same character in the positions
+	  //specified by the letter int
+      if(temp.size() > letter){
+	  
+        if(temp[letter] == search[letter]){
+             
+	  	  //if they are equal they are plut in a vector of other zipcodes that have similar char's
+          yes.push_back(*it);
+        }
       }
-      else{no.push_back(*it);}
+     it++; 
     }
-    if(!yes.empty()){
+  	//if any zipcodes share a letter in the specified location, than the function
+    	//is called recursively to check the next letter
+    	
+    if(!yes.empty()&& letter != search.size()){
       letter++;
       searchbystate(yes, search, letter);
+      letter--;
     }
+	//once the recursion is over all the zipcodes that were in the yes vector will be added to other
+	//vector in the order of most similar letters to least not including the same zipcode twice
+    
     it = yes.begin();
+    int x;
+     
     while(it != yes.end()){
-      other->push_back(*it);
+		x=0;
+		it2 = other.begin();
+		while (it2 != other.end()) {
+                        //still use get zip since zipcodes are unique foe each location
+			if (it->getzip() == it2->getzip()) { x++;}
+                       it2++;
+		}
+		if (x == 0) {
+                        other.push_back(*it);
+		}
+         it++;
     }
+	//calls partial display once since letter will only equal zero the first time
     if(letter == 0){
-      partialdisplay(*other);
+     
+      partialdisplay(other);
+      other.clear();
     }
-	other->clear();
+	//clears other vector so that it will be ready fo the next search
   }    
-
+   
   //adds a zipcode to tvipvect
   void database::addzipcode(){
+	  zipcode z = zipcode();
     std::string userzip = " ";
     std::cout<<"Please enter the zipcode and other information listed, if you dont know something type n/a.\n";
-        zipcode temp = zipcode();
 	//creates a new instance of zipcode in zipvect
-	zipvect->insert(zipvect->begin(), temp);
+	zipvect.insert(zipvect.begin(), z);
 	//all this is to make input harder for the user to mess up
 	//initially was going to have them seperate by tabs but they would mess it up
 	std::cout << "Zipcode:";
-	std::cin >> userzip;
-	zipvect->at(0).setzip(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setzip(userzip);
 	std::cout << "\ntype:";
-	std::cin >> userzip;
-	zipvect->at(0).settype(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).settype(userzip);
 	std::cout << "\nmaincity:";
-	std::cin >> userzip;
-	zipvect->at(0).setmaincity(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setmaincity(userzip);
 	std::cout << "\nsecondarycity:";
-	std::cin >> userzip;
-	zipvect->at(0).setsecondcity(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setsecondcity(userzip);
 	std::cout << "\nstate:";
-	std::cin >> userzip;
-	zipvect->at(0).setstate(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setstate(userzip);
 	std::cout << "\ncounty:";
-	std::cin >> userzip;
-	zipvect->at(0).setcounty(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setcounty(userzip);
 	std::cout << "\ntimezone:";
-	std::cin >> userzip;
-	zipvect->at(0).settimezone(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).settimezone(userzip);
 	std::cout << "\nareacode:";
-	std::cin >> userzip;
-	zipvect->at(0).setareacode(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setareacode(userzip);
 	std::cout << "\nlatitude:";
-	std::cin >> userzip;
-	zipvect->at(0).setlatitude(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setlatitude(userzip);
 	std::cout << "\nlongitude:";
-	std::cin >> userzip;
-	zipvect->at(0).setlongitude(userzip);
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setlongitude(userzip);
 	std::cout << "\npopulation:";
-	std::cin >> userzip;
-	zipvect->at(0).setpopulation(userzip);
-	std::cout << "/n";
-    
+	std::getline(std::cin,userzip);
+	zipvect.at(0).setpopulation(userzip);
+	std::cout << "\n";
   }
 
   //finds the distance between two zipcodes
   void database::finddistance(std::string s1, std::string s2){
     
-    zipcode *place1 = new zipcode();
-    zipcode *place2 = new zipcode();
+     
+    zipcode place1 = zipcode();
+    zipcode place2 = zipcode();
     int i=0, j=0;
 	//finds the two zipcodes you entered
-    std::vector<zipcode>::iterator it = zipvect->begin();
-    while(it != zipvect->end()){
-      while(i == 0){
+    std::vector<zipcode>::iterator it = zipvect.begin();
+    while(it != zipvect.end()){
+      if(i == 1 && j == 1){break;}
+      if(i==0){
         if(it->getzip() == s1 || it->getmaincity() == s1){
-          *place1 = *it;
+          place1.setequal(*it);
           i++;
         }
       }
-      while(j == 0){
+      if(j==0){ 
         if(it->getzip() == s2 || it->getmaincity() == s2){
-          *place2 = *it;
+          place2.setequal(*it);
           j++;
-        }
+        }  
       }
+      it++;
     }
 	//if your two zipcodes exist then the program continues
    if(i != 0 && j != 0){
     float distance;
     float x1, y1, x2, y2;     //converting to radians
-    x1 = place1->getlongitude()*(3.14/180);
-    y1 = place1->getlatitude()*(3.14/180);
-    x2 = place2->getlongitude()*(3.14/180);
-    y2 = place2->getlatitude()*(3.14/180); 
+    x1 = place1.getlongitude()*(M_PI/180);
+    y1 = place1.getlatitude()*(M_PI/180);
+    x2 = place2.getlongitude()*(M_PI/180);
+    y2 = place2.getlatitude()*(M_PI/180); 
    
     //hevrsine equation finds surface distance
     distance = 2*6371*asin(sqrt(pow(sin((y2-y1)/2),2)+cos(y1)*cos(y2)*pow(sin((x2-x1)/2),2)));
@@ -363,29 +457,32 @@
    }
    //else happens if the program cannot find the zipcode
    else{std::cout<<"You did not enter a valid zipcode.\n";}
-   delete place1;
-   delete place2;
+   
   }
 
   //swaps two zipcodes in zipvect
 void database::swap(int a, int b){
   //a and b are locations in the vector
-  zipcode* temp = new zipcode();
+  
+  zipcode temp = zipcode();
   //uses set equal like an equal sign would on regular variables
-  zipvect->at(a).setequal(*temp);
-  zipvect->at(b).setequal(zipvect->at(a));
-  temp->setequal(zipvect->at(b));
-  delete temp; 
+  temp.setequal(zipvect.at(a));
+  zipvect.at(a).setequal(zipvect.at(b));
+  zipvect.at(b).setequal(temp);
+
+   
 }
 
 //sorts elements of zipvect
 void database::quicksort(std::string a, int lo, int hi){
   //lo and hi are essentially indices in zipvect
+   
   if(lo < hi){
+  
 	//p is the pivot point that the program uses 
 	//all values less than pivot are put on the left, and all values greater 
 	//are to the right of it
-    int p = partition(a,hi,lo);
+    int p = partition(a,lo,hi);
 	//I added p == -1 to test for bad user input;
     if(p == -1){
       return;
@@ -399,19 +496,20 @@ void database::quicksort(std::string a, int lo, int hi){
 //finds a pivot points to break vector into smaller parts
 int database::partition(std::string a,int lo, int hi){
   //pivot is described above
+  
   std::string pivot;
   int i = lo;
   int j = hi;
   bool keepgoing = true;
   //checks which sorting method the user would like to use
   if(a== "1"){
-  pivot = zipvect->at(lo).getzip();
+  pivot = zipvect.at(lo).getzip();
   }
   else if(a == "2"){
-  pivot = zipvect->at(lo).getmaincity();
+  pivot = zipvect.at(lo).getmaincity();
   }
   else if(a == "3"){
-  pivot = zipvect->at(lo).getstate();
+  pivot = zipvect.at(lo).getstate();
   }
   //if the user did not enter input correctly they are notified
   else{
@@ -419,22 +517,31 @@ int database::partition(std::string a,int lo, int hi){
     return (-1);
   }
   //loops until i>=j meaning until the indices are pointing to the same place or have overlapped
+  i--;
+  j++;
   while(keepgoing){
     if(a == "1"){
-      while(zipvect->at(i).getzip()< pivot){i = i+1;}
-      while(zipvect->at(j).getzip()> pivot){j = j-1;}
+      do{i = i+1;
+      }
+      while(zipvect.at(i).getzip()< pivot);
+      do{j = j-1;}
+      while(zipvect.at(j).getzip()> pivot);
       if(i >= j){return j;}
       swap(i,j);
     }
     if(a == "2"){
-      while(zipvect->at(i).getmaincity()< pivot){i = i+1;}
-      while(zipvect->at(j).getmaincity()> pivot){j = j-1;}
+      do{i = i+1;}
+      while(zipvect.at(i).getmaincity()< pivot);
+      do{j = j-1;}
+      while(zipvect.at(j).getmaincity()> pivot);
       if(i >= j){return j;}
       swap(i,j);
     }
     if(a == "3"){
-      while(zipvect->at(i).getstate()< pivot){i = i+1;}
-      while(zipvect->at(j).getstate()> pivot){j = j-1;}
+      do{i = i+1;}
+      while(zipvect.at(i).getstate()< pivot);
+      do{j = j-1;}
+      while(zipvect.at(j).getstate()> pivot);
       if(i >= j){return j;}
       swap(i,j);
     }
